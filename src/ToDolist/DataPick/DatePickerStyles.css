@@ -1,0 +1,35 @@
+.date-picker-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.custom-datepicker {
+  padding: 10px;
+  font-size: 25px;
+  border: 10px solid #ccc;
+  border-radius: 4px;
+  margin-top: 8px;
+  width: 150px;
+}
+.react-datepicker {
+  font-size: 16px; /* Увеличьте размер шрифта в календаре */
+}
+
+.react-datepicker__input-container {
+  width: 100%; /* Сделайте контейнер ввода 100% ширины */
+}
+
+.react-datepicker__month-container {
+  width: 100%; /* Сделайте контейнер месяца 100% ширины */
+}
+
+.react-datepicker__month {
+  width: 100%; /* Сделайте месяц 100% ширины */
+}
+
+.react-datepicker__day {
+  width: 40px; /* Увеличьте ширину ячейки дня */
+  height: 40px; /* Увеличьте высоту ячейки дня */
+  line-height: 40px; /* Установите высоту строки, чтобы центрировать текст */
+}
