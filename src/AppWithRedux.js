@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ComboBox } from './ToDolist/AutoComplForm/AutoComplForm';
 import { ToolBarComp } from './WorkProject/ToolBar/ToolBar';
 
-function AppWithRedux() {
+export function AppWithRedux() {
   const dispatch = useDispatch();
   const toDoLists = useSelector((state) => state.toDoLists);
   const tasksObj = useSelector((state) => state.tasksObj);
@@ -44,9 +44,8 @@ function AppWithRedux() {
     dispatch(addTodolistAC(title));
   }, []);
 
-
   return (
-    <div className='App'>
+    <div className="App">
       <ToolBarComp />
       <Container style={{ padding: '10px' }} fixed>
         <Grid container>
@@ -77,5 +76,3 @@ function AppWithRedux() {
     </div>
   );
 }
-
-export default AppWithRedux;

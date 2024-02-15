@@ -27,6 +27,23 @@
     transform: rotate(360deg);
   }
 }
+table {
+  border: 2px solid forestgreen;
+  width: 600px;
+  height: 50px;
+  font-size: 12px;
+}
+
+th {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+td {
+  padding: 1px;
+  border: 1px solid black;
+  text-align: center;
+}
 /*
 .tasks-list {
   width: 300px;

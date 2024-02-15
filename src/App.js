@@ -1,67 +1,90 @@
 import './App.css';
-import React, { useCallback } from 'react';
-import { Container, Grid, Paper } from '@mui/material';
-import { changeTodolistFilterAC, changeTodolistTitleAC } from './ToDolist/State/todolists-reducer';
+import React, { memo, useCallback, useState } from 'react';
+import { Button, Container, Grid, Paper } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToolBarComp } from './WorkProject/ToolBar/ToolBar';
-import { setModelListTitleAC } from './ToDolist/State/modelList-reducer';
-import { PartList } from './WorkProject/PartList';
+import { changeFilterAC, setModelListTitleAC } from './WorkProject/State/modelList-reducer';
+import { Table } from './WorkProject/Table/Table';
 
-function App() {
+export let App = memo(() => {
+  let fr = true;
+
+  let [filter, setFilter] = useState('all');
+
   const dispatch = useDispatch();
-  const toDoLists = useSelector((state) => state.modelList);
+  const modelList = useSelector((state) => state.modelList);
 
-
-  let changeToDoListTitle = (toDoLIstId, newTitle) => {
-    /*const action = changeTodolistTitleAC(toDoLIstId, newTitle)
-                dispatchToDoListsReducer(action)*/
-    dispatch(changeTodolistTitleAC(toDoLIstId, newTitle));
-  };
-
-  function changeFilter(filterValue, toDoListId) {
-    /* const action = changeTodolistFilterAC(value, toDoListId)
-             dispatchToDoListsReducer(action)*/
-    dispatch(changeTodolistFilterAC(filterValue, toDoListId));
+  function changeFilter(filter) {
+    dispatch(changeFilterAC(filter));
   }
 
+  const onAllClickHandler = () => {
+    setFilter('all');
+  };
+  const onActiveClickHandler = () => {
+    setFilter('active');
+  };
+  const onCompletedClickHandler = () => {
+    setFilter('completed');
+  };
+
   const setModel = useCallback((state) => {
-    /* const action = addTodolistAC(title)
-         dispatchToDoListsReducer(action)
-         dispatchTaskReducer(action)*/
     dispatch(setModelListTitleAC(state));
   }, []);
 
-
+  let itemList = modelList;
+  if (filter === 'completed') {
+    itemList = itemList.filter((t) => t.isDone === true);
+  }
+  if (filter === 'active') {
+    itemList = itemList.filter((t) => t.isDone === false);
+  }
   return (
-    <div className='App'>
+    <div className="App">
       <ToolBarComp setModel={setModel} />
       <Container style={{ padding: '10px' }} fixed>
-        <Grid container>
-
-        </Grid>
+        <Grid container></Grid>
         <Grid container spacing={3}>
           <Paper style={{ padding: '10px' }}>
-            {toDoLists.map((tl) => {
-              return (
-                <Grid item>
-
+            <Table modelList={itemList} />
+            {/*<table className="App">
+              {itemList.map((el, key) => {
+                return (
                   <PartList
-                    propTitle={tl.PODZESPÓŁ}
-                    key={tl.id}
-                    tlId={tl.id}
+                    propTitle={el.PODZESPÓŁ}
+                    id={el.id}
                     changeFilter={changeFilter}
-                    propFilter={tl.NAZWA}
-                    changeToDoListTitle={changeToDoListTitle}
+                    propFilter={el.filter}
+                    isDone={el.isDone}
+                    key={key}
+                    el={el}
                   />
+                );
+              })}
+            </table>*/}
 
-                </Grid>
-              );
-            })}
+            <div>
+              <Button variant={filter === 'all' ? 'contained' : 'text'} onClick={onAllClickHandler}>
+                all
+              </Button>
+              <Button
+                color={'primary'}
+                variant={filter === 'active' ? 'contained' : 'text'}
+                onClick={onActiveClickHandler}
+              >
+                Active
+              </Button>
+              <Button
+                color={'secondary'}
+                variant={filter === 'completed' ? 'contained' : 'outlined'}
+                onClick={onCompletedClickHandler}
+              >
+                Completed
+              </Button>
+            </div>
           </Paper>
         </Grid>
       </Container>
     </div>
   );
-}
-
-export default App;
+});

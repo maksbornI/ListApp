@@ -7,7 +7,6 @@ import { addTaskAC } from './State/tasks-reducer';
 import { memo, useCallback } from 'react';
 import { Task } from './Task';
 
-
 export const Todolist = memo(({ propTitle, tlId, changeFilter, propFilter, removeToDoList, changeToDoListTitle }) => {
   const tasksObj = useSelector((state) => state.tasksObj[tlId]);
   const dispatch = useDispatch();
@@ -16,6 +15,7 @@ export const Todolist = memo(({ propTitle, tlId, changeFilter, propFilter, remov
     changeFilter('all', tlId);
   }, [changeFilter, tlId]);
   const onActiveClickHandler = useCallback(() => {
+    debugger;
     changeFilter('active', tlId);
   }, [tlId, changeFilter]);
   const onCompletedClickHandler = useCallback(() => {
@@ -47,7 +47,7 @@ export const Todolist = memo(({ propTitle, tlId, changeFilter, propFilter, remov
     <div className={'tasks-list'}>
       <h3>
         <EditableSpan taskTitle={propTitle} onChangeTitleHandler={onChangeTitleHandler} />
-        <IconButton color={'primary'} size={'large'} aria-label='delete' onClick={onRemoveHandler}>
+        <IconButton color={'primary'} size={'large'} aria-label="delete" onClick={onRemoveHandler}>
           <DeleteIcon />
         </IconButton>
       </h3>
@@ -55,37 +55,6 @@ export const Todolist = memo(({ propTitle, tlId, changeFilter, propFilter, remov
       <ol key={tlId}>
         {tasksForToDoLists.map((task) => {
           return <Task task={task} id={tlId} key={tlId} />;
-          /* const onRemoveHandler = () => {
-             dispatch(removeTaskAC(t.id, props.id));
-           };
-
-           const onChangeHandler = (e) => {
-             dispatch(
-               changeTaskStatusAC(t.id, e.currentTarget.checked, props.id),
-             );
-           };
-           const onChangeTitleHandler = (title) => {
-             dispatch(changeTaskTitleAC(t.id, title, props.id));
-           };
-
-           return (
-             <li key={t.id} className={t.isDone ? s.is_done : ''}>
-               <Checkbox checked={t.isDone} onChange={onChangeHandler} />
-               <EditableSpan
-                 title={t.title}
-                 onChangeTitleHandler={onChangeTitleHandler}
-               />
-
-               <IconButton
-                 color='primary'
-                 size={'large'}
-                 aria-label='delete'
-                 onClick={onRemoveHandler}
-               >
-                 <DeleteIcon />
-               </IconButton>
-             </li>
-           );*/
         })}
       </ol>
       <div>

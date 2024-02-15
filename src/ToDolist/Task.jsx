@@ -6,7 +6,7 @@ import { EditableSpan } from './EditableSpan';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';
 
-export const Task = memo(({ task,id }) => {
+export const Task = memo(({ task, id }) => {
   const dispatch = useDispatch();
   const onRemoveHandler = useCallback(() => {
     dispatch(removeTaskAC(task.id, id));
@@ -30,7 +30,7 @@ export const Task = memo(({ task,id }) => {
       <Checkbox checked={task.isDone} onChange={onChangeHandler} />
       <EditableSpan taskTitle={task.title} onChangeTitleHandler={onChangeTitleHandler} />
 
-      <IconButton color='primary' size={'large'} aria-label='delete' onClick={onRemoveHandler}>
+      <IconButton color="primary" size={'large'} aria-label="delete" onClick={onRemoveHandler}>
         <DeleteIcon />
       </IconButton>
     </li>

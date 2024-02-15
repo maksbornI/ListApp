@@ -20,8 +20,6 @@ test('correct todolist should be removed', () => {
   const endState = todoListsReducer(startState, action);
   expect(endState.length).toBe(1);
   expect(endState[0].id).toBe(todolistId2);
-
-
 });
 test('correct todolist should be added', () => {
   let todolistId1 = v1();
